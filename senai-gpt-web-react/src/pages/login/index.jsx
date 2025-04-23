@@ -55,7 +55,7 @@ function Login() {
 
           // setCookie("meuToken", token,7);
 
-          window.location.href = "/chat";
+          window.location.href = "/chat"
 
     } else {
 

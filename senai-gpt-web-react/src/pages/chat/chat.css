@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+
+.container {
+
+    display: flex;
+    justify-content: baseline;
+
+}
+
+.painel-lateral {
+
+
+    height: 100vh;
+    width: 20vw;
+    background-color: white;
+    border-right: 1px solid #ccc;
+
+
+}
+
+.painel-central {
+
+    width: 80vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     
+    
+
+}
+
+.top {
+
+    font-family: "inter";
+    padding-top: 10px;
+    width: 100%;
+    height: 70%;
+    background-color: white;
+    font-family: "inter";
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+
+}
+
+.btm-chat {
+
+    padding: 10px;
+    border-radius: 10px;
+    background-color: black;
+    color: #f7f9fb;
+    width: 15vw;
+    border: none;
+    text-align: left;
+    text-align: center;
+    
+
+}
+
+.bottom {
+
+    width: 100%;
+    height: 30%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    display: flex;
+   
+    
+
+}
+
+.btm-q {
+
+    padding-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 15vw;
+    text-align: left;
+    border: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.btm-q img {
+
+    margin-right: 15px;
+
+}
+
+/* .btm-2q {
+
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 20vw;
+    border: none;
+
+}
+
+.btm-3q {
+
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 20vw;
+    border: none;
+
+} */
+
+.btm-clear-conversation {
+
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    width: 15vw;
+    border: none;
+    text-align: left;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+.btm-clear-conversation img {
+
+    margin-right: 15px;
+
+}
+
+
+.example-left {
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    margin-right: 100px;
+    
+
+
+}
+
+.example-left p {
+
+    display: flex; /* Usa o modelo Flexbox para organizar os elementos */
+    flex-direction: column; /* Organiza os elementos em colunas */
+    align-items: center; /* Cetraliza horizontalmente */
+font-weight: bold;
+
+}
+
+.explique-como-um-computador-quântico-funciona {
+
+
+    height: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    width: 300px;
+    border: none;
+    background-color: #F7F9FB;
+    margin-bottom: 20px;
+    text-align: left;
+
+}
+
+.container-example{
+
+margin-top: 120px;
+display: flex;
+align-items: center;
+flex-direction: row;
+margin-left: 160px;
+
+
+
+}
+
+
+.chat {
+
+    padding: 10px;
+    width: 760px;
+    margin-bottom: 16px;
+    background-color: #F7F9FB; 
+    border-radius: 10px;
+    border: none;
+    margin-top: auto
+   
+}
+
+.senai-image {
+
+margin-top: auto    ;
+
+}
+
+
+.input-container{
+
+margin-top: auto;
+margin-bottom: 40px;
+
+display: flex;
+align-items: center;
+
+border: none;
+background-color: #F7F9FB;
+
+border-radius: 16px;
+
+padding-left: 15px;
+padding-right: 15px;
+
+}
+
+.input-container input{
+
+border: none;
+padding: 20px;
+background-color: transparent;
+width: 40vw;
+margin-bottom: 0px;
+
+}
