@@ -24,3 +24,40 @@
 
    ![image](https://github.com/user-attachments/assets/c00907eb-4a57-420d-b43a-3680993a56c7)
 
+# LOGIN
+
+1. Ir no src, e dentro da area pages criar as pastas para a tela de chat e de login
+
+   ![image](https://github.com/user-attachments/assets/5b42f5d4-835f-4ca0-8479-81f694f1d9ee)
+
+2. Dentro da pasta de chat, crie os arquivos "index.jsx" e "login.css"
+
+   ![image](https://github.com/user-attachments/assets/b13be6b6-e854-424e-8b1b-bbc15da93ce1)
+
+3. Va no App.jsx e import o Login, adicionando sua "function"
+   ![image](https://github.com/user-attachments/assets/342c963e-9eed-4fcc-8c76-88e8e17a3257)
+
+4. Va no arquivo index.jsx e dentro do return, cole o seu body do html que ja havia produzido anteriormente:
+
+   ![image](https://github.com/user-attachments/assets/092661b9-034d-4a3c-931c-2306a5c271aa)
+
+5. Va no arquivo login.css e importe seu antigo css que ja havia sido produzido anteriormente:
+
+   ![image](https://github.com/user-attachments/assets/757f4d60-ce88-42ff-b621-7d947d937c15)
+
+6. Va no campo Assets e crie as pastas "styles" e "imgs"
+
+   ![image](https://github.com/user-attachments/assets/bc5d7ff3-91c8-4b28-ab0a-4f64d7a112e1)
+
+7. Importe as imagens, ja escolhidas e projetadas, dentro da pasta "imgs"
+
+   ![image](https://github.com/user-attachments/assets/1319b7f3-a513-4436-89fc-50afffabf1f1)
+
+8. Importe o global.css dentro da pasta "styles"
+
+   ![image](https://github.com/user-attachments/assets/50cab3f9-7fb7-4a34-b7ea-34ee550a6d0f)
+
+9. Va no arquivo index.jsx 
+
+
+
