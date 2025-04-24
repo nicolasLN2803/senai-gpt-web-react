@@ -25,11 +25,11 @@
     height: 100vh;
     background-color: white;
     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     
-    
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
 
 }
 
@@ -58,7 +58,7 @@
     border: none;
     text-align: left;
     text-align: center;
-    
+
 
 }
 
@@ -72,8 +72,8 @@
     align-items: center;
     border-top: 1px solid #ccc;
     display: flex;
-   
-    
+
+
 
 }
 
@@ -137,7 +137,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    
+
 }
 
 .btm-clear-conversation img {
@@ -154,17 +154,20 @@
     text-align: center;
     justify-content: center;
     margin-right: 100px;
-    
+
 
 
 }
 
 .example-left p {
 
-    display: flex; /* Usa o modelo Flexbox para organizar os elementos */
-    flex-direction: column; /* Organiza os elementos em colunas */
-    align-items: center; /* Cetraliza horizontalmente */
-font-weight: bold;
+    display: flex;
+    /* Usa o modelo Flexbox para organizar os elementos */
+    flex-direction: column;
+    /* Organiza os elementos em colunas */
+    align-items: center;
+    /* Cetraliza horizontalmente */
+    font-weight: bold;
 
 }
 
@@ -183,13 +186,13 @@ font-weight: bold;
 
 }
 
-.container-example{
+.container-example {
 
-margin-top: 120px;
-display: flex;
-align-items: center;
-flex-direction: row;
-margin-left: 160px;
+    margin-top: 120px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    margin-left: 160px;
 
 
 
@@ -201,44 +204,43 @@ margin-left: 160px;
     padding: 10px;
     width: 760px;
     margin-bottom: 16px;
-    background-color: #F7F9FB; 
+    background-color: #F7F9FB;
     border-radius: 10px;
     border: none;
     margin-top: auto
-   
 }
 
 .senai-image {
 
-margin-top: auto    ;
+    margin-top: auto;
 
 }
 
 
-.input-container{
+.input-container {
 
-margin-top: auto;
-margin-bottom: 40px;
+    margin-top: auto;
+    margin-bottom: 40px;
 
-display: flex;
-align-items: center;
+    display: flex;
+    align-items: center;
 
-border: none;
-background-color: #F7F9FB;
+    border: none;
+    background-color: #F7F9FB;
 
-border-radius: 16px;
+    border-radius: 16px;
 
-padding-left: 15px;
-padding-right: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
 
 }
 
-.input-container input{
+.input-container input {
 
-border: none;
-padding: 20px;
-background-color: transparent;
-width: 40vw;
-margin-bottom: 0px;
+    border: none;
+    padding: 20px;
+    background-color: transparent;
+    width: 40vw;
+    margin-bottom: 0px;
 
 }

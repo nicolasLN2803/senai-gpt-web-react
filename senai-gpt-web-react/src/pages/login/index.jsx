@@ -33,29 +33,29 @@ function Login() {
     if (response.ok == true) {
 
       alert("Login realizado com sucesso!");
-        console.log(response) 
+      console.log(response)
 
-          let json = await response.json();
+      let json = await response.json();
 
-          let token = json.accessToken;
+      let token = json.accessToken;
 
-          console.log("Token: " + token);
+      console.log("Token: " + token);
 
-          // LOCAL STORAGE
-          localStorage.setItem("mytoken", token);
+      // LOCAL STORAGE
+      localStorage.setItem("meuToken", token);
 
-          // // COOKIES
+      // // COOKIES
 
-          // function setCookie(name, value, days) {
-          //   const date = new Date();
-          //   date.setTime(date.getTime() + (days*24*60*60*1000)); // dias para milissegundos
-          //   const expires = "expires=" + date.toUTCString();
-          //   document.cookie = `${name}= ${value}; ${expires}; path=/`;
-          // }
+      // function setCookie(name, value, days) {
+      //   const date = new Date();
+      //   date.setTime(date.getTime() + (days*24*60*60*1000)); // dias para milissegundos
+      //   const expires = "expires=" + date.toUTCString();
+      //   document.cookie = `${name}= ${value}; ${expires}; path=/`;
+      // }
 
-          // setCookie("meuToken", token,7);
+      // setCookie("meuToken", token,7);
 
-          window.location.href = "/chat"
+      window.location.href = "/chat"
 
     } else {
 
