@@ -27,6 +27,7 @@ function Chat() {
 
         // executada toda a vez que a tela inicia  
         getChats();
+        
 
     }, []);
 
@@ -75,226 +76,298 @@ function Chat() {
 
     const chatGPT = async (message) => {
 
-            // Configurações do endpoint e chave da API
-            const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
-            const apiKey = "DCYQGY3kPmZXr0lh7xeCSEOQ5oiy1aMlN1GeEQd5G5cXjuLWorWOJQQJ99BCACYeBjFXJ3w3AAAAACOGol8N";
-            const deploymentId = "gpt-4"; // Nome do deployment no Azure OpenAI
-            const apiVersion = "2024-05-01-preview"; // Verifique a versão na documentação
-    
-            // URL para a chamada da API
-            const url = `${endpoint}/openai/deployments/${deploymentId}/chat/completions?api-version=${apiVersion}`;
-    
-            // Configurações do corpo da requisição
-            const data = {
-                messages: [{ role: "user", content: message }],
-                max_tokens: 50
-            };
-    
-            // Cabeçalhos da requisição
-            const headers = {
-                "Content-Type": "application/json",
-                "api-key": apiKey
-            };
-    
-            // Faz a requisição com fetch
-            const response = await fetch(url, {
-                method: "POST",
-                headers: headers,
-                body: JSON.stringify(data)
-            });
-    
-            if (response.ok) {
-                const result = await response.json();
-                const botMessage = result.choices[0].message.content;
-                return botMessage;
-            }
-    
+        // Configurações do endpoint e chave da API
+        const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
+        const apiKey = "DCYQGY3kPmZXr0lh7xeCSEOQ5oiy1aMlN1GeEQd5G5cXjuLWorWOJQQJ99BCACYeBjFXJ3w3AAAAACOGol8N";
+        const deploymentId = "gpt-4"; // Nome do deployment no Azure OpenAI
+        const apiVersion = "2024-05-01-preview"; // Verifique a versão na documentação
+
+        // URL para a chamada da API
+        const url = `${endpoint}/openai/deployments/${deploymentId}/chat/completions?api-version=${apiVersion}`;
+
+        // Configurações do corpo da requisição
+        const data = {
+            messages: [{ role: "user", content: message }],
+            max_tokens: 50
+        };
+
+        // Cabeçalhos da requisição
+        const headers = {
+            "Content-Type": "application/json",
+            "api-key": apiKey
+        };
+
+        // Faz a requisição com fetch
+        const response = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+            const result = await response.json();
+            const botMessage = result.choices[0].message.content;
+            return botMessage;
         }
+
+    }
 
 
     const enviarMensagem = async (message) => {
 
-        let response = await chatGPT (message)
+        let response = await chatGPT(message)
 
-         console.log("Resposta: ", response)
+        console.log("Resposta: ", response)
 
         const novaMensagemUsuario = {
 
             userI: "userId",
             text: message,
-            id: 10
+            id: crypto.randomUUID
 
         }
 
         let novaRespostaChatGPT = {
 
             userId: "chatbot",
-            text: resposta,
-            id: 10
+            text: response,
+            id:crypto.randomUUID
 
         }
-        let novoChatSelecionado = { ...chatSelecionado}; //Copia do chatSelecionado
+        let novoChatSelecionado = { ...chatSelecionado }; //Copia do chatSelecionado
 
-        novoChatSelecionado.message.push(novaMessageUsuario) // Add uma mensagem.
-        novoRespostaChatGPT.message.push(novoRespostaChatGPT)// Add uma mensagem.
-    
+        novoChatSelecionado.messages.push(novaMensagemUsuario) // Add uma mensagem.
+        novoChatSelecionado.messages.push(novaRespostaChatGPT)// Add uma mensagem.
+
         setChatSelecionado(novoChatSelecionado);
+
+        console.log("resposta ", novaRespostaChatGPT)
+
+        let res = await fetch("https://senai-gpt-api.azurewebsites.net/chats/" + chatSelecionado.id, {
+            method: "PUT",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                novoChatSelecionado
+            )
+        });
+
+        if (res.ok == false) {
+
+            console.log("Salvar o chat deu errado.");
+
+        }
+
+    }
+
+
+    const novoChat = async () => {
+
+       let novoTitulo = prompt("Insira o título para seu chat: ");
+
+       if (novoTitulo == null ) {
+
+        alert("Insira um título.");
+        return; // faz o código parar de ser executado.
+
+       }
+
+       let userId = localStorage.getItem("meuId");
+
+        let nChat = {
+
+            chatTitle: novoTitulo,
+            id:crypto.randomUUID,
+            userId: userId,
+            messages: []
+
+        }
+
+        const response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + localStorage.getItem("meuToken"),
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                nChat
+            )
+
+        });
+
+        if (response.ok == false) {
+
+            //Atualiza os chats da tela
+            await getChats();
+
+        }
+
 
     };
 
-   
+        
+            
+            
 
 
 
-    return (
-        <>
-            <div className="container">
-                <header className="painel-lateral">
-                    <div className="top">
-                        <button className="btm-chat"> + New Chat </button>
 
-                        {chats.map(chat => (
-                            <button className="btm-q" onClick={() => clickChat(chat)}>
-                                <img src={chatt} alt="imagem-do-chat" />
-                                {chat.chatTitle}
-                            </button>
 
-                        ))}
 
-                    </div>
-                    <div className="bottom">
-                        <button className="btm-clear-conversation">
 
-                            <img src={Trash} alt="limpar-conversa" />
-                            Clear Conversation</button>
-                        <button className="btm-clear-conversation">
+        return (
+            <>
+                <div className="container">
+                    <header className="painel-lateral">
+                        <div className="top">
+                            <button className="btm-chat" onClick={() => novoChat()}> + New Chat </button>
 
-                            <img src={light} alt="modo-claro" />
-                            Light mode </button>
-                        <button className="btm-clear-conversation">
+                            {chats.map(chat => (
+                                <button className="btm-q" onClick={() => clickChat(chat)}>
+                                    <img src={chatt} alt="imagem-do-chat" />
+                                    {chat.chatTitle}
+                                </button>
 
-                            <img src={user} alt="minha-conta" />
-                            My account </button>
-                        <button className="btm-clear-conversation">
+                            ))}
 
-                            <img src={updates} alt="update-image" />
-                            Updates & FAQ </button>
-                        <button className="btm-clear-conversation" onClick={() => onLogOutClick()}>
+                        </div>
+                        <div className="bottom">
+                            <button className="btm-clear-conversation">
 
-                            <img src={logout} alt="log-out" />
-                            Log out </button>
+                                <img src={Trash} alt="limpar-conversa" />
+                                Clear Conversation</button>
+                            <button className="btm-clear-conversation">
 
-                    </div>
+                                <img src={light} alt="modo-claro" />
+                                Light mode </button>
+                            <button className="btm-clear-conversation">
 
-                </header>
+                                <img src={user} alt="minha-conta" />
+                                My account </button>
+                            <button className="btm-clear-conversation">
 
-                <main className="painel-central">
+                                <img src={updates} alt="update-image" />
+                                Updates & FAQ </button>
+                            <button className="btm-clear-conversation" onClick={() => onLogOutClick()}>
 
-                    {chatSelecionado == null && (
-                        <>
+                                <img src={logout} alt="log-out" />
+                                Log out </button>
 
-                            <div className="senai-image">
+                        </div>
 
-                                <img src={Chatpng} alt="Foto-do-senai" />
-                            </div>
-                            <div className="container-example">
-                                <div className="example-left">
-                                    <p>
+                    </header>
 
-                                        <img src={ballon} alt="balão-example" />
-                                        Example </p>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um-computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
+                    <main className="painel-central">
+
+                        {chatSelecionado == null && (
+                            <>
+
+                                <div className="senai-image">
+
+                                    <img src={Chatpng} alt="Foto-do-senai" />
+                                </div>
+                                <div className="container-example">
+                                    <div className="example-left">
+                                        <p>
+
+                                            <img src={ballon} alt="balão-example" />
+                                            Example </p>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um-computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                    </div>
+
+                                    <div className="example-left">
+                                        <p>
+
+                                            <img src={star} alt="balão-example" />
+                                            Capacibilities </p>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um-computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                    </div>
+
+                                    <div className="example-left">
+                                        <p>
+                                            <img src={warning} alt="balão-example" />
+                                            Limitations </p>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um-computador quântico funciona </button>
+                                        <button className=" explique-como-um-computador-quântico-funciona ">
+                                            explique como um computador quântico funciona </button>
+                                    </div>
                                 </div>
 
-                                <div className="example-left">
-                                    <p>
+                            </>
+                        )}
 
-                                        <img src={star} alt="balão-example" />
-                                        Capacibilities </p>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um-computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
-                                </div>
+                        {chatSelecionado != null && (
 
-                                <div className="example-left">
-                                    <p>
-                                        <img src={warning} alt="balão-example" />
-                                        Limitations </p>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um-computador quântico funciona </button>
-                                    <button className=" explique-como-um-computador-quântico-funciona ">
-                                        explique como um computador quântico funciona </button>
-                                </div>
-                            </div>
+                            <>
 
-                        </>
-                    )}
+                                <div className="chat-container">
 
-                    {chatSelecionado != null && (
+                                    <div className="chat-header">
 
-                        <>
+                                        <h2> {chatSelecionado.chatTitle} </h2>
 
-                            <div className="chat-container">
+                                    </div>
 
-                                <div className="chat-header">
+                                    <div className="chat-messages">
 
-                                    <h2> {chatSelecionado.chatTitle} </h2>
+                                        {chatSelecionado.messages.map(message => (
+
+                                            <p className={"message-item " + (message.userId == "chatbot" ? "chatbot" : "")}> {message.text}</p>
+
+                                        ))}
+
+                                    </div>
 
                                 </div>
 
-                                <div className="chat-messages">
+                            </>
 
-                                    {chatSelecionado.messages.map(message => (
+                        )}
 
-                                        <p className={"message-item " + (message.userId == "chatbot" ? "chatbot" : "")}> {message.text}</p>
+                        <div className="input-container">
 
-                                    ))}
-
-                                </div>
-
-                            </div>
-
-                        </>
-
-                    )}
-
-                    <div className="input-container">
-
-                        <img src={microphone} alt="microfone" />
-                        <img src={photo} alt="foto" />
+                            <img src={microphone} alt="microfone" />
+                            <img src={photo} alt="foto" />
 
 
-                        <input
-                            value={userMessage}
-                            onChange={event => setUserMessage(event.target.value)}
-                            placeholder="Type a message."
-                            type="text" />
+                            <input
+                                value={userMessage}
+                                onChange={event => setUserMessage(event.target.value)}
+                                placeholder="Type a message."
+                                type="text" />
 
-                        <img onClick={() => enviarMensagem(userMessage)} src={send} alt="enviar" />
+                            <img onClick={() => enviarMensagem(userMessage)} src={send} alt="enviar" />
 
-                    </div>
-                </main>
+                        </div>
+                    </main>
 
 
-            </div>
+                </div>
 
-        </>
+            </>
 
-    )
+        )
 
 
 
 
-};
+    };
 
-export default Chat;
+
+    export default Chat;
