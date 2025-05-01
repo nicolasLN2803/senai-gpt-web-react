@@ -62,3 +62,11 @@
     height: 100vh;
 
 }
+
+.form-hint {
+
+    margin-top: 20px;
+    font-family: "Inter";
+    font-weight: auto;
+
+}

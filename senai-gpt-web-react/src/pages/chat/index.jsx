@@ -31,9 +31,11 @@ function Chat() {
 
     }, []);
 
+
+
     const getChats = async () => {
         //arrow function(funcao arco e flecha ou seta)
-        let response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+        let response = await fetch("https://senai-gpt-api.up.railway.app/chats", {
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken")
             }
@@ -41,20 +43,23 @@ function Chat() {
 
         console.log(response)
 
-        if (response.ok == true) {
+        if (response.ok){
+
 
             let json = await response.json();
-
+    
+            let userId = localStorage.getItem("meuId");
+    
+            json = json.filter(chat => chat.userId == userId);
+            
             setChats(json);
 
-        } else {
-
-            if (response == 401) {
-
-                alert("Token invalido. Execute o login novamente.")
-                window.location.href = "/login"
-
-            }
+        } else if (response.stetus == 401) {
+    
+            alert("Token inválido. Faça o login novamente. ");
+            localStorage.clear(); 
+            window.location.href = "/login";
+    
         }
 
 
@@ -75,6 +80,8 @@ function Chat() {
     }
 
     const chatGPT = async (message) => {
+
+        return "[Mensagemfixa]";
 
         // Configurações do endpoint e chave da API
         const endpoint = "https://ai-testenpl826117277026.openai.azure.com/";
@@ -143,7 +150,7 @@ function Chat() {
 
         console.log("resposta ", novaRespostaChatGPT)
 
-        let res = await fetch("https://senai-gpt-api.azurewebsites.net/chats/" + chatSelecionado.id, {
+        let res = await fetch("https://senai-gpt-api.up.railway.app/chats" + chatSelecionado.id, {
             method: "PUT",
             headers: {
                 "Authorization": "Bearer " + localStorage.getItem("meuToken"),
@@ -185,7 +192,7 @@ function Chat() {
 
         }
 
-        const response = await fetch("https://senai-gpt-api.azurewebsites.net/chats", {
+        const response = await fetch("https://senai-gpt-api.up.railway.app/chats", {
 
             method: "POST",
             headers: {
@@ -207,15 +214,6 @@ function Chat() {
 
 
     };
-
-        
-            
-            
-
-
-
-
-
 
 
         return (

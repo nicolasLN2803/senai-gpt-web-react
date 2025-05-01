@@ -1,0 +1,64 @@
+.page-container {
+
+    display: flex;
+
+
+}
+
+
+.titulo {
+
+    font-size: 76px;
+    font-family: "inter";
+    font-weight: normal;
+    margin-bottom: 16px;
+
+
+}
+
+.inpt {
+
+    padding: 10px;
+    width: 377px;
+    margin-bottom: 16px;
+    background-color: #F7F9FB;
+    border-radius: 10px;
+    border: none;
+    /* Define a cor do fundo e os espaçamento interno */
+}
+
+.btm {
+    padding: 10px;
+    border-radius: 10px;
+    background-color: black;
+    color: #f7f9fb;
+    width: 377px;
+
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 50vw;
+
+
+}
+
+.logo {
+
+    height: 60px;
+
+}
+
+.nUser-image {
+
+    background-image: url("../../assets/imgs//TELADEUSER.jpg");
+    background-size: cover;
+
+    width: 50vw;
+    height: 100vh;
+
+}

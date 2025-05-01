@@ -2,6 +2,7 @@ import "./login.css"
 import logo from "../../assets/imgs/Chat.png"
 import { useState } from "react";
 
+
 function Login() {
 
   const [email, setEmail] = useState("");
@@ -13,7 +14,7 @@ function Login() {
 
   const onLoginCLick = async () => {
 
-    let response = await fetch("https://senai-gpt-api.azurewebsites.net/login", {
+    let response = await fetch("https://senai-gpt-api.up.railway.app/users", {
 
       headers: {
         "Content-Type": "application/json"
@@ -89,6 +90,7 @@ function Login() {
           <input className="inpt" value={password} onChange={event => setPassword(event.target.value)} type="password" placeholder=" Insira a senha" />
 
           <button className="btm" onClick={onLoginCLick}> Entrar </button>
+          <a className="form-hint" href="/new-user"> Clique aqui para fazer o cadastro. </a>
         </div>
       </main>
 
