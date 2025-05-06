@@ -14,7 +14,21 @@ function Login() {
 
   const onLoginCLick = async () => {
 
-    let response = await fetch("https://senai-gpt-api.up.railway.app/users", {
+    if (email == "") {
+
+      alert("Email nao pode estar vazio.");
+      return;
+
+    }
+
+    if (password == ""){
+
+      alert("Senha nao pode estar vazio.");
+      return;
+
+    }
+
+    let response = await fetch("https://senai-gpt-api.up.railway.app/login", {  
 
       headers: {
         "Content-Type": "application/json"
@@ -39,11 +53,13 @@ function Login() {
       let json = await response.json();
 
       let token = json.accessToken;
+      let userId = json.user.id;
 
       console.log("Token: " + token);
 
       // LOCAL STORAGE
       localStorage.setItem("meuToken", token);
+      localStorage.setItem("meuId", userId);
 
       // // COOKIES
 

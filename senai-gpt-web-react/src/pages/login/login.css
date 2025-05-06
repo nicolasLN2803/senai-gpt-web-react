@@ -70,3 +70,32 @@
     font-weight: auto;
 
 }
+
+@media screen and (max-width: 768px){
+
+    /*celular*/
+    .robo-image {
+
+        display: none;
+
+    }
+
+    .login-container {
+
+        width: 100vw;
+       
+    }
+
+}
+
+@media screen and (max-width: 1000px){
+
+    /*tablet*/
+    
+}
+
+@media screen and (max-width: 1366px){
+
+    /*desktop pequeno*/
+
+}

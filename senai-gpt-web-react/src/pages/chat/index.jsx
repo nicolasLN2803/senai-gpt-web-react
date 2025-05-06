@@ -23,6 +23,8 @@ function Chat() {
     const [chatSelecionado, setChatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("")
 
+    const[IsLeftPanelOpen, setIsLeftPanelOpen]= useState(false);
+
     useEffect(() => {
 
         // executada toda a vez que a tela inicia  
@@ -128,7 +130,7 @@ function Chat() {
 
         const novaMensagemUsuario = {
 
-            userI: "userId",
+            userId: "userId",
             text: message,
             id: crypto.randomUUID
 
@@ -170,9 +172,13 @@ function Chat() {
     }
 
 
+    
     const novoChat = async () => {
-
+    
+        
        let novoTitulo = prompt("Insira o título para seu chat: ");
+         
+        
 
        if (novoTitulo == null ) {
 
@@ -205,10 +211,11 @@ function Chat() {
 
         });
 
-        if (response.ok == false) {
+        if (response.ok) {
 
             //Atualiza os chats da tela
             await getChats();
+            setChatSelecionado(nChat)
 
         }
 
@@ -219,7 +226,13 @@ function Chat() {
         return (
             <>
                 <div className="container">
-                    <header className="painel-lateral">
+                    <button className="btn-toggle-panel"
+                    onClick={() => setIsLeftPanelOpen(true)}>
+
+                    ☰
+
+                    </button>
+                    <header className={`painel-lateral${IsLeftPanelOpen == true ? "open" : ""}`}>
                         <div className="top">
                             <button className="btm-chat" onClick={() => novoChat()}> + New Chat </button>
 
