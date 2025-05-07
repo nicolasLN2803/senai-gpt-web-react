@@ -77,6 +77,7 @@ function Chat() {
     const clickChat = (chat) => {
 
         setChatSelecionado(chat);
+        setIsLeftPanelOpen(false);
         console.log(chat);
 
     }
@@ -227,12 +228,13 @@ function Chat() {
             <>
                 <div className="container">
                     <button className="btn-toggle-panel"
-                    onClick={() => setIsLeftPanelOpen(true)}>
+                    onClick={() => setIsLeftPanelOpen(!IsLeftPanelOpen)} //Inverte o valor da variavel
+                    >
 
                     ☰
 
                     </button>
-                    <header className={`painel-lateral${IsLeftPanelOpen == true ? "open" : ""}`}>
+                    <header className={`painel-lateral ${IsLeftPanelOpen == true ? "open" : ""}`}>
                         <div className="top">
                             <button className="btm-chat" onClick={() => novoChat()}> + New Chat </button>
 

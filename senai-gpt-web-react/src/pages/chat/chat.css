@@ -14,7 +14,7 @@
     height: 100vh;
     width: 20vw;
     background-color: white;
-    border-right: 1px solid #ccc;
+    border-right: 20px;
 
 
 }
@@ -251,13 +251,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    height: 100vh;
     width: 80vw;
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
-    height:  90vh;
 
+    height: 90vh;
     overflow: auto;
 
 }
@@ -296,54 +295,124 @@
 
 }
 
-@media screen and (max-width: 768px) {
-
-/*Celular*/
-
-.painel-lateral{
+.btn-toggle-panel {
 
     display: none;
-}
-
-.painel-lateral.open{
-
-    display: block;
-
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-
-    background-color: white;
 
 }
 
-.painel-central{
+@media screen and (max-width: 768px) {
 
-    width: 100vw;
+    /*Celular*/
+
+    .painel-lateral {
+
+        /*menu fechado*/
+        display: none;
+
+    }
+
+    .painel-lateral.open {
+
+        /*menu aberto*/
+
+
+        display: block;
+
+        align-items: flex-end;
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+
+        background-color: white;
+
+    }
+
+    .painel-central {
+
+        width: 100vw;
+
+    }
+
+    .btn-toggle-panel {
+
+        display: block;
+
+        z-index: 2;
+
+        width: 50px;
+        height: 50px;
+
+        border-radius: 100px;
+        border: 1px solid black;
+
+        position: absolute;
+        right: 20px;
+        bottom: 120px;
+
+        font-size: 25px;
+
+        background-color: white;
+
+    }
+
+    .top {
+
+        align-items: start;
+        margin-left: 10vw;
+
+    }
+
+    .bottom {
+
+        align-items: start;
+        margin-left: 10vw;
+
+    }
+
+    .btm-chat {
+
+        width: 90vw;
+        margin-bottom: 10px;
+        margin-left: 5vw;
+
+    }
+
+    .btm-q {
+
+        width: 90vw;
+        margin-bottom: 10px;
+        margin-left: 5vw;
+
+    }
+
+    .bottom {
+
+        width: 90vw;
+        margin-bottom: 10px;
+        margin-left: 15vw;
+
+    }
+
+    .senai-image img {
+
+        width: 70vw;
+        
+
+    }
+
+    .container-example {
+
+        margin-left: 100px;
+
+    }   
+
+    .example-left {
+
+        width: 120px;
+        margin-right: 100px;
+
+    }
+
     
 }
-
-.btn-toggle-panel{
-
-z-index: 2;
-
-width: 50px;
-height: 50px;
-    
-border-radius: 100px;
-border: 1px solid black;
-
-position: absolute;
-right: 20px;
-bottom: 120px;
-
-font-size:25px;
-
-background-color: white;
-
-}
-    
-}
-
-
-
