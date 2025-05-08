@@ -403,16 +403,20 @@
 
     .container-example {
 
-        margin-left: 100px;
+        margin-left: 25px;
 
     }   
 
     .example-left {
 
         width: 120px;
-        margin-right: 100px;
+        margin-right: 20px;
 
     }
 
-    
+    .example-left .explique-como-um-computador-quântico-funciona{
+
+width: 135px;
+
+    }
 }
