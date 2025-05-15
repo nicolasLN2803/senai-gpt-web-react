@@ -1,18 +1,26 @@
 import "./chat.css";
-import chatt from "../../assets/imgs/chat.svg"
 import Trash from "../../assets/imgs/Trash.svg"
 import light from "../../assets/imgs/light.svg"
 import user from "../../assets/imgs/User.svg"
 import updates from "../../assets/imgs/updates.svg"
 import logout from "../../assets/imgs/logout.svg"
-import Chatpng from "../../assets/imgs/Chat.png"
+import blackIcon from "../../assets/imgs/chat.svg"
 import ballon from "../../assets/imgs/balão.svg"
 import star from "../../assets/imgs/estrela.svg"
 import warning from "../../assets/imgs/warning.svg"
 import microphone from "../../assets/imgs/Button.svg"
 import photo from "../../assets/imgs/imagem.svg"
 import send from "../../assets/imgs/enviar.svg"
+import whiteIcon from "../../assets/imgs/ICONEBRANCO.svg"
+import whiteTrash from "../../assets/imgs/LIXOBRANCO.svg"
+import whiteLight from "../../assets/imgs/LUZBRANCA.svg"
+import senaiFoto from "../../assets/imgs/Chat.png"
+import whiteUser from "../../assets/imgs/PESSOABRANCA.svg"
+import whiteUpdates from "../../assets/imgs/UPDATEBRANCO.svg"
+import whiteLogout from "../../assets/imgs/LOGOUTBRANCO.svg"
+
 import { useEffect, useState } from "react";
+
 
 
 
@@ -23,13 +31,22 @@ function Chat() {
     const [chatSelecionado, setChatSelecionado] = useState(null);
     const [userMessage, setUserMessage] = useState("")
 
-    const[IsLeftPanelOpen, setIsLeftPanelOpen]= useState(false);
+    const [IsLeftPanelOpen, setIsLeftPanelOpen] = useState(false);
+
+    const [darkMode, setDarkMode] = useState(false);
 
     useEffect(() => {
 
         // executada toda a vez que a tela inicia  
         getChats();
-        
+
+        let modoEscuro = localStorage.getItem("darkMode");
+        if(modoEscuro === "true") {
+
+            setDarkMode(true);
+            document.body.classList.add("dark-mode")
+        }
+
 
     }, []);
 
@@ -45,23 +62,23 @@ function Chat() {
 
         console.log(response)
 
-        if (response.ok){
+        if (response.ok) {
 
 
             let json = await response.json();
-    
+
             let userId = localStorage.getItem("meuId");
-    
+
             json = json.filter(chat => chat.userId == userId);
-            
+
             setChats(json);
 
         } else if (response.stetus == 401) {
-    
+
             alert("Token inválido. Faça o login novamente. ");
-            localStorage.clear(); 
+            localStorage.clear();
             window.location.href = "/login";
-    
+
         }
 
 
@@ -141,7 +158,7 @@ function Chat() {
 
             userId: "chatbot",
             text: response,
-            id:crypto.randomUUID
+            id: crypto.randomUUID
 
         }
         let novoChatSelecionado = { ...chatSelecionado }; //Copia do chatSelecionado
@@ -173,27 +190,27 @@ function Chat() {
     }
 
 
-    
+
     const novoChat = async () => {
-    
-        
-       let novoTitulo = prompt("Insira o título para seu chat: ");
-         
-        
 
-       if (novoTitulo == null ) {
 
-        alert("Insira um título.");
-        return; // faz o código parar de ser executado.
+        let novoTitulo = prompt("Insira o título para seu chat: ");
 
-       }
 
-       let userId = localStorage.getItem("meuId");
+
+        if (novoTitulo == null) {
+
+            alert("Insira um título.");
+            return; // faz o código parar de ser executado.
+
+        }
+
+        let userId = localStorage.getItem("meuId");
 
         let nChat = {
 
             chatTitle: novoTitulo,
-            id:crypto.randomUUID,
+            id: crypto.randomUUID,
             userId: userId,
             messages: []
 
@@ -220,167 +237,185 @@ function Chat() {
 
         }
 
-
     };
 
+    const toggleDarkMode = () => {
 
-        return (
-            <>
-                <div className="container">
-                    <button className="btn-toggle-panel"
+        setDarkMode(!darkMode);
+
+        if (darkMode == true) {
+
+            document.body.classList.remove("dark-mode");
+
+        } else {
+
+            document.body.classList.add("dark-mode");
+
+        }
+
+        localStorage.setItem("darkMode", darkMode)
+
+    }
+
+
+
+    return (
+        <>
+            <div className="container">
+                <button className="btn-toggle-panel"
                     onClick={() => setIsLeftPanelOpen(!IsLeftPanelOpen)} //Inverte o valor da variavel
-                    >
+                >
 
                     ☰
 
-                    </button>
-                    <header className={`painel-lateral ${IsLeftPanelOpen == true ? "open" : ""}`}>
-                        <div className="top">
-                            <button className="btm-chat" onClick={() => novoChat()}> + New Chat </button>
+                </button>
+                <header className={`painel-lateral ${IsLeftPanelOpen == true ? "open" : ""}`}>
+                    <div className="top">
+                        <button className="btm-chat" onClick={() => novoChat()}> + New Chat </button>
 
-                            {chats.map(chat => (
-                                <button className="btm-q" onClick={() => clickChat(chat)}>
-                                    <img src={chatt} alt="imagem-do-chat" />
-                                    {chat.chatTitle}
-                                </button>
+                        {chats.map(chat => (
+                            <button className="btm-q" onClick={() => clickChat(chat)}>
+                                <img src={darkMode == true? whiteIcon : blackIcon} alt="imagem-do-chat" />
+                                {chat.chatTitle}
+                            </button>
 
-                            ))}
+                        ))}
 
-                        </div>
-                        <div className="bottom">
-                            <button className="btm-clear-conversation">
+                    </div>
+                    <div className="bottom">
+                        <button className="btm-clear-conversation">
 
-                                <img src={Trash} alt="limpar-conversa" />
-                                Clear Conversation</button>
-                            <button className="btm-clear-conversation">
+                            <img src={darkMode == true? whiteTrash : Trash} alt="limpar-conversa" />
+                            Clear Conversation</button>
+                        <button className="btm-clear-conversation" onClick={() => toggleDarkMode()}>
 
-                                <img src={light} alt="modo-claro" />
-                                Light mode </button>
-                            <button className="btm-clear-conversation">
+                            <img src={darkMode == true? whiteLight : light} alt="modo-claro" />
+                            Light mode </button>
+                        <button className="btm-clear-conversation">
 
-                                <img src={user} alt="minha-conta" />
-                                My account </button>
-                            <button className="btm-clear-conversation">
+                            <img src={darkMode == true? whiteUser : user} alt="minha-conta" />
+                            My account </button>
+                        <button className="btm-clear-conversation">
 
-                                <img src={updates} alt="update-image" />
-                                Updates & FAQ </button>
-                            <button className="btm-clear-conversation" onClick={() => onLogOutClick()}>
+                            <img src={darkMode == true? whiteUpdates : updates} alt="update-image" />
+                            Updates & FAQ </button>
+                        <button className="btm-clear-conversation" onClick={() => onLogOutClick()}>
 
-                                <img src={logout} alt="log-out" />
-                                Log out </button>
+                            <img src={darkMode == true? whiteLogout : logout} alt="log-out" />
+                            Log out </button>
 
-                        </div>
+                    </div>
 
-                    </header>
+                </header>
 
-                    <main className="painel-central">
+                <main className="painel-central">
 
-                        {chatSelecionado == null && (
-                            <>
+                    {chatSelecionado == null && (
+                        <>
 
-                                <div className="senai-image">
+                            <div className="senai-image">
 
-                                    <img src={Chatpng} alt="Foto-do-senai" />
-                                </div>
-                                <div className="container-example">
-                                    <div className="example-left">
-                                        <p>
+                                <img src={senaiFoto} alt="Foto-do-senai" />
+                            </div>
+                            <div className="container-example">
+                                <div className="example-left">
+                                    <p>
 
-                                            <img src={ballon} alt="balão-example" />
-                                            Example </p>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um-computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                    </div>
-
-                                    <div className="example-left">
-                                        <p>
-
-                                            <img src={star} alt="balão-example" />
-                                            Capacibilities </p>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um-computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                    </div>
-
-                                    <div className="example-left">
-                                        <p>
-                                            <img src={warning} alt="balão-example" />
-                                            Limitations </p>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um-computador quântico funciona </button>
-                                        <button className=" explique-como-um-computador-quântico-funciona ">
-                                            explique como um computador quântico funciona </button>
-                                    </div>
+                                        <img src={ballon} alt="balão-example" />
+                                        Example </p>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um-computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
                                 </div>
 
-                            </>
-                        )}
+                                <div className="example-left">
+                                    <p>
 
-                        {chatSelecionado != null && (
+                                        <img src={star} alt="balão-example" />
+                                        Capacibilities </p>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um-computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
+                                </div>
 
-                            <>
+                                <div className="example-left">
+                                    <p>
+                                        <img src={warning} alt="balão-example" />
+                                        Limitations </p>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um-computador quântico funciona </button>
+                                    <button className=" explique-como-um-computador-quântico-funciona ">
+                                        explique como um computador quântico funciona </button>
+                                </div>
+                            </div>
 
-                                <div className="chat-container">
+                        </>
+                    )}
 
-                                    <div className="chat-header">
+                    {chatSelecionado != null && (
 
-                                        <h2> {chatSelecionado.chatTitle} </h2>
+                        <>
 
-                                    </div>
+                            <div className="chat-container">
 
-                                    <div className="chat-messages">
+                                <div className="chat-header">
 
-                                        {chatSelecionado.messages.map(message => (
-
-                                            <p className={"message-item " + (message.userId == "chatbot" ? "chatbot" : "")}> {message.text}</p>
-
-                                        ))}
-
-                                    </div>
+                                    <h2> {chatSelecionado.chatTitle} </h2>
 
                                 </div>
 
-                            </>
+                                <div className="chat-messages">
 
-                        )}
+                                    {chatSelecionado.messages.map(message => (
 
-                        <div className="input-container">
+                                        <p className={"message-item " + (message.userId == "chatbot" ? "chatbot" : "")}> {message.text}</p>
 
-                            <img src={microphone} alt="microfone" />
-                            <img src={photo} alt="foto" />
+                                    ))}
 
+                                </div>
 
-                            <input
-                                value={userMessage}
-                                onChange={event => setUserMessage(event.target.value)}
-                                placeholder="Type a message."
-                                type="text" />
+                            </div>
 
-                            <img onClick={() => enviarMensagem(userMessage)} src={send} alt="enviar" />
+                        </>
 
-                        </div>
-                    </main>
+                    )}
 
+                    <div className="input-container">
 
-                </div>
-
-            </>
-
-        )
+                        <img src={microphone} alt="microfone" />
+                        <img src={photo} alt="foto" />
 
 
+                        <input
+                            value={userMessage}
+                            onChange={event => setUserMessage(event.target.value)}
+                            placeholder="Type a message."
+                            type="text" />
+
+                        <img onClick={() => enviarMensagem(userMessage)} src={send} alt="enviar" />
+
+                    </div>
+                </main>
 
 
-    };
+            </div>
+
+        </>
+
+    )
 
 
-    export default Chat;
+
+
+};
+
+
+export default Chat;

@@ -420,3 +420,49 @@ width: 135px;
 
     }
 }
+
+
+
+
+body.dark-mode .top {
+
+background-color: black !important;
+
+
+}
+
+body.dark-mode .bottom {
+
+background-color: black !important;
+
+}
+
+body.dark-mode .painel-lateral {
+
+background-color: black !important;
+
+}
+
+body.dark-mode .btm-q {
+
+color: white;
+background-color: black;
+
+}
+
+body.dark-mode .btm-chat {
+
+background-color: #C6C7F8 !important;
+color: black
+
+
+}
+
+body.dark-mode .btm-clear-conversation {
+
+background-color: black !important;
+color: white
+
+
+}
+
